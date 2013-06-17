@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -11,16 +12,37 @@ import static org.junit.Assert.assertThat;
  * To change this template use File | Settings | File Templates.
  */
 public class BowlingGameTest {
+
+    private Game game;
+
+    @Before
+    public void setUp(){
+        game = new Game();
+    }
+
     @Test
     public void shouldScoreZeroWhenKnockedDownZeroPins(){
-        Game game = new Game();
-
-        for (int i=0; i<21; i++){
-            game.roll(0);
-        }
+        rollMany(21, 0);
 
         int score = game.score();
-        assertThat("The total score calculated error!", score, is(0));
+        assertThat("Total score calculation error!", score, is(0));
+    }
+
+    @Test
+    public void shouldCalculateOpenScoreAsExpected(){
+        game.roll(5);
+        game.roll(4);
+
+        rollMany(19, 0);
+
+        int score = game.score();
+        assertThat("Total score calculation error!", score, is(9));
+    }
+
+    private void rollMany(int times, int pins) {
+        for (int i=0; i< times; i++){
+            game.roll(pins);
+        }
     }
 
 }
