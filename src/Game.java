@@ -18,14 +18,13 @@ public class Game {
     }
 
     public int score() {
-
         int frameIndex = 0;
         for (int frame = 0; frame < TOTAL_FRAMES; frame++) {
             if (isStrike(frameIndex)) {
-                score += 10 + rolls.get(frameIndex + 1) + rolls.get(frame + 2);
+                score += 10 + strikeBonus(frameIndex, frame);
                 frameIndex++;
             } else if (isSpare(frameIndex)) {
-                score += 10 + rolls.get(frameIndex + 2);
+                score += 10 + spareBonus(frameIndex);
                 frameIndex += 2;
             } else {
                 score += rolls.get(frameIndex) + rolls.get(frameIndex + 1);
@@ -34,6 +33,14 @@ public class Game {
         }
 
         return score;
+    }
+
+    private Integer spareBonus(int frameIndex) {
+        return rolls.get(frameIndex + 2);
+    }
+
+    private int strikeBonus(int frameIndex, int frame) {
+        return rolls.get(frameIndex + 1) + rolls.get(frame + 2);
     }
 
     private boolean isStrike(int frame) {
