@@ -21,11 +21,19 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void shouldScoreZeroWhenKnockedDownZeroPins(){
+    public void shouldCalculateScoreForAllZeros(){
         rollMany(21, 0);
 
         int score = game.score();
         assertThat("Total score calculation error!", score, is(0));
+    }
+
+    @Test
+    public void shouldScoreForAllOnes(){
+        rollMany(20, 1);
+
+        int score = game.score();
+        assertThat("Total score calculation error!", score, is(20));
     }
 
     @Test
@@ -60,6 +68,13 @@ public class BowlingGameTest {
         rollMany(17, 0);
         int score = game.score();
         assertThat("Total score calculation with one strike error!", score, is(24));
+    }
+
+    @Test
+    public void shouldCalculateScoreForPerfectGame(){
+        rollMany(12, 10);
+        int score = game.score();
+        assertThat("Total score calculation for perfect game error!", score, is(300));
     }
 
     private void rollStrike() {
