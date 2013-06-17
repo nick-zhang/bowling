@@ -40,7 +40,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void shouldCalculateScoreForOneSpare(){
+    public void shouldCalculateScoreWithOneSpare(){
         rollSpare();
 
         game.roll(4);
@@ -48,7 +48,22 @@ public class BowlingGameTest {
         rollMany(18, 0);
         int score = game.score();
         assertThat("Total score calculation with one spare error!", score, is(18));
+    }
 
+    @Test
+    public void shouldCalculateSoreWithOneStrike(){
+        rollStrike();
+
+        game.roll(3);
+        game.roll(4);
+
+        rollMany(17, 0);
+        int score = game.score();
+        assertThat("Total score calculation with one strike error!", score, is(24));
+    }
+
+    private void rollStrike() {
+        game.roll(10);
     }
 
     private void rollSpare() {

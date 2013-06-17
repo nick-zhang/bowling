@@ -15,11 +15,22 @@ public class Game {
 
     public void roll(int pins) {
         rolls.add(pins);
+
+        ignoreSecondThrowGivenStrikeFirst(pins);
+    }
+
+    private void ignoreSecondThrowGivenStrikeFirst(int pins) {
+        if (pins == 10)
+        {
+            rolls.add(0);
+        }
     }
 
     public int score() {
         for (int frame = 0; frame < TOTAL_FRAMES; frame+=2) {
-            if (isSpare(frame)) // Spare
+            if(isStrike(frame)){
+                score += 10 + rolls.get(frame+2) + rolls.get(frame + 3);
+            } else if (isSpare(frame))
             {
                 score += 10 + rolls.get(frame + 2);
             } else {
@@ -28,6 +39,10 @@ public class Game {
         }
 
         return score;
+    }
+
+    private boolean isStrike(int frame) {
+        return rolls.get(frame) == 10;
     }
 
     private boolean isSpare(int frame) {
