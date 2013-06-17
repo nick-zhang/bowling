@@ -9,6 +9,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Game {
+    public static final int TOTAL_FRAMES = 10;
     private int score;
     private List<Integer> rolls = new ArrayList<Integer>();
 
@@ -17,8 +18,8 @@ public class Game {
     }
 
     public int score() {
-        for (int frame = 0; frame < 10; frame+=2) {
-            if (rolls.get(frame) + rolls.get(frame + 1) == 10) // Spare
+        for (int frame = 0; frame < TOTAL_FRAMES; frame+=2) {
+            if (isSpare(frame)) // Spare
             {
                 score += 10 + rolls.get(frame + 2);
             } else {
@@ -27,5 +28,9 @@ public class Game {
         }
 
         return score;
+    }
+
+    private boolean isSpare(int frame) {
+        return rolls.get(frame) + rolls.get(frame + 1) == 10;
     }
 }
