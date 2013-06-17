@@ -39,6 +39,19 @@ public class BowlingGameTest {
         assertThat("Total score calculation error!", score, is(9));
     }
 
+    @Test
+    public void shouldCalculateScoreForOneSpare(){
+        game.roll(5);
+        game.roll(5);
+
+        game.roll(4);
+
+        rollMany(18, 0);
+        int score = game.score();
+        assertThat("Total score calculation with one spare error!", score, is(18));
+
+    }
+
     private void rollMany(int times, int pins) {
         for (int i=0; i< times; i++){
             game.roll(pins);

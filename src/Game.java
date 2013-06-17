@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: nickzhang
@@ -7,12 +10,22 @@
  */
 public class Game {
     private int score;
+    private List<Integer> rolls = new ArrayList<Integer>();
 
     public void roll(int pins) {
-        score += pins;
+        rolls.add(pins);
     }
 
     public int score() {
+        for (int frame = 0; frame < 10; frame+=2) {
+            if (rolls.get(frame) + rolls.get(frame + 1) == 10) // Spare
+            {
+                score += 10 + rolls.get(frame + 2);
+            } else {
+                score += rolls.get(frame) + rolls.get(frame + 1);
+            }
+        }
+
         return score;
     }
 }
