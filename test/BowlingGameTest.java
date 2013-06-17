@@ -29,7 +29,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void shouldScoreForAllOnes(){
+    public void shouldCalculateScoreForAllOnes(){
         rollMany(20, 1);
 
         int score = game.score();
